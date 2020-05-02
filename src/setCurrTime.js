@@ -1,7 +1,7 @@
-export default async function setTime(timeDifference) {
+export default async function setTime(date) {
   const time = document.querySelector('#time');
-  const currDate = new Date();
-  currDate.setHours(currDate.getHours() + timeDifference);
+  const currDate = date();
+
   let hours = currDate.getHours();
   let minutes = currDate.getMinutes();
 

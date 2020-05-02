@@ -53,8 +53,13 @@ if (currUnitsFormat === 'Fahrenheit') {
   setTimeout(setFahUnitFormat, 3000);
 }
 
+// Get Current Date
 let timeDifference = 0;
-let timerId = window.setInterval(setCurrTime, 3000, timeDifference);
+const getTime = () => {
+  const currDate = new Date();
+  currDate.setHours(currDate.getHours() + timeDifference);
+  return currDate;
+};
 
 let forecast;
 let location;
@@ -78,9 +83,7 @@ window.onclick = async (event) => {
     setWeatherIcons(currForecast);
     setDate(currLanguage, setSearchTime(useGeocod(areaSearch)));
 
-    clearInterval(timerId);
     timeDifference = await getTimeDifference(setSearchTime(useGeocod(areaSearch)));
-    timerId = window.setInterval(setCurrTime, 3000, timeDifference);
 
     document.getElementById('prldr').style = 'display: fixed;';
     setTimeout(delerePreLoad, 4000);
@@ -103,5 +106,8 @@ window.onclick = async (event) => {
     }
   }
 };
+
+// Set Time
+window.setInterval(setCurrTime, 3000, getTime);
 
 setTimeout(delerePreLoad, 7000);
