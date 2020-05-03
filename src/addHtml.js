@@ -1,7 +1,7 @@
 export default function addHtml(objWords) {
   const htmlBody = document.querySelector('body');
 
-  htmlBody.insertAdjacentHTML('afterbegin', '<div id="prldr"><div class="contpre"><span class="svg_anm"></span></div></div><div class="wrapper"><header class="header_block" id="head"></header><main class="main_block" id="main"></main></div>');
+  htmlBody.insertAdjacentHTML('afterbegin', '<div id="prldr"><div class="contpre"><label ></label><label></label><label></label><label></label><label></label><label></label></div></div><div class="wrapper"><header class="header_block" id="head"></header><main class="main_block" id="main"></main></div>');
 
   // Head
   const fragmentHeader = document.createDocumentFragment();
