@@ -1,27 +1,77 @@
 export default function addHtml(objWords) {
   const htmlBody = document.querySelector('body');
 
-  htmlBody.insertAdjacentHTML('afterbegin', '<div id="prldr"><div class="contpre"><label ></label><label></label><label></label><label></label><label></label><label></label></div></div><div class="wrapper"><header class="header_block" id="head"></header><main class="main_block" id="main"></main></div>');
+  function addPreLoad() {
+    const preload = document.createElement('div');
+    preload.id = 'prldr';
+    const contpre = document.createElement('div');
+    contpre.className = 'contpre';
+    for (let i = 0; i < 6; i += 1) {
+      contpre.append(document.createElement('label'));
+    }
+    preload.append(contpre);
+    return preload;
+  }
+  function addWrapper() {
+    const wrapper = document.createElement('div');
+    wrapper.className = 'wrapper';
+    const header = document.createElement('header');
+    header.className = 'header_block';
+    header.id = 'head';
+    const main = document.createElement('main');
+    main.className = 'main_block';
+    main.id = 'main';
+    wrapper.append(header);
+    wrapper.append(main);
+
+    return wrapper;
+  }
+  htmlBody.prepend(addWrapper());
+  htmlBody.prepend(addPreLoad());
+
+
+  function createButton(type, name, firstClass, secondClass, text = '') {
+    const btn = document.createElement('button');
+    btn.setAttribute('type', type);
+    btn.setAttribute('name', name);
+    btn.prepend(text);
+    btn.classList.add(`${firstClass}`, `${secondClass}`);
+    return btn;
+  }
+
 
   // Head
   const fragmentHeader = document.createDocumentFragment();
 
   const navigationMenuBlock = document.createElement('nav');
   navigationMenuBlock.classList.add('navigation_menu_block');
-  navigationMenuBlock.innerHTML = `
-   <button type="button" name="image button" class="navigation_menu_block-image_btn btn"></button>
-   <div class="navigation_menu_block-dropdown">
-     <button class="choose_btn btn"></button>
-     <div id="myDropdown" class="language_buttons">
-       <button type="button" name="eng language" class="eng_language_btn language_btn">Eng</button>
-       <button type="button" name="rus language" class="rus_language_btn language_btn">Rus</button>
-       <button type="button" name="bel language" class="bel_language_btn language_btn">Bel</button>
-     </div>
-   </div>
-   <div class="temperature_units">
-     <input type="checkbox" id="temperature_change"/>
-     <label for="temperature_change" class="temp_change"></label>
-   </div>`;
+  navigationMenuBlock.prepend(createButton('button', 'image button', 'navigation_menu_block-image_btn', 'btn'));
+  const dropdown = document.createElement('div');
+  dropdown.className = 'navigation_menu_block-dropdown';
+  const languageBtns = document.createElement('div');
+  languageBtns.id = 'myDropdown';
+  languageBtns.className = 'language_buttons';
+  languageBtns.prepend(createButton('button', 'bel language', 'bel_language_btn', 'language_btn', 'Bel'));
+  languageBtns.prepend(createButton('button', 'rus language', 'rus_language_btn', 'language_btn', 'Rus'));
+  languageBtns.prepend(createButton('button', 'eng language', 'eng_language_btn', 'language_btn', 'Eng'));
+
+  dropdown.prepend(createButton('', '', 'choose_btn', 'btn'));
+  dropdown.append(languageBtns);
+  navigationMenuBlock.append(dropdown);
+
+  const temperature = document.createElement('div');
+  temperature.className = 'temperature_units';
+  const temperatureInput = document.createElement('input');
+  temperatureInput.setAttribute('type', 'checkbox');
+  temperatureInput.id = 'temperature_change';
+  const temperatureLabel = document.createElement('label');
+  temperatureLabel.setAttribute('for', 'temperature_change');
+  temperatureLabel.className = 'temp_change';
+  temperature.prepend(temperatureInput);
+  temperature.append(temperatureLabel);
+
+  navigationMenuBlock.append(temperature);
+
 
   const searchMenuBlock = document.createElement('div');
   searchMenuBlock.classList.add('search_menu_block');
@@ -46,33 +96,81 @@ export default function addHtml(objWords) {
   function addFutureDay(weekDay, degrees, icon) {
     const day = document.createElement('div');
     day.classList.add('future_weather_block-day');
-    day.innerHTML = `
-      <p id=${weekDay} class='week_day'>Sunday</p>
-      <p id=${degrees} class="degrees"></p>
-      <i id=${icon}></i>`;
+
+    const dayOfTheWeek = document.createElement('p');
+    dayOfTheWeek.id = `${weekDay}`;
+    dayOfTheWeek.className = 'week_day';
+    dayOfTheWeek.prepend('Sunday');
+    const degreesOfTheWeather = document.createElement('p');
+    degreesOfTheWeather.id = `${degrees}`;
+    degreesOfTheWeather.className = 'degrees';
+    const iconOfTheWeather = document.createElement('i');
+    iconOfTheWeather.id = `${icon}`;
+
+    day.prepend(dayOfTheWeek);
+    day.prepend(degreesOfTheWeather);
+    day.prepend(iconOfTheWeather);
+
     return day;
   }
 
+  function addDataField(id, text = '') {
+    const field = document.createElement('span');
+    field.id = `${id}`;
+    field.prepend(`${text}`);
+    return field;
+  }
+
   const fragmentMain = document.createDocumentFragment();
+
+
+  // Info Block
   const infoBlock = document.createElement('div');
   infoBlock.classList.add('info_block');
-  infoBlock.innerHTML = `
-   <div class="info_block-local_data local_data_block">
-    <p id="city"><span id="country">Belarus</span></p>
-    <p id="date">Mon 28 October <span id="time">17:23</span></p>
-   </div>
-   <div class="info_block-degrees degrees_block">
-    <p id="currDegrees"></p>
-    <i id="currWeatherCondition"></i>
-   <div class="degrees_block-curr_info curr_info_block">
-    <ul>
-      <li><span id="currWeatherType"></span></li>
-      <li>${objWords.feels}: <span id="currWeatherFeels"></span></li>
-      <li>${objWords.wind}: <span id="currWeatherWind"></span></li>
-      <li>${objWords.humidity}: <span id="currWeatherHumidity"></span></li>
-    </ul>
-    </div>
-   </div>`;
+
+  const cityAndDate = document.createElement('div');
+  cityAndDate.classList.add('info_block-local_data', 'local_data_block');
+  const city = document.createElement('p');
+  city.id = 'city';
+  city.append(addDataField('country', 'Belarus'));
+  const date = document.createElement('p');
+  date.id = 'date';
+  date.append(addDataField('time', '00:00'));
+  cityAndDate.append(city);
+  cityAndDate.append(date);
+
+  const degrees = document.createElement('div');
+  degrees.classList.add('info_block-degrees', 'degrees_block');
+  const currentDegrees = document.createElement('p');
+  currentDegrees.id = 'currDegrees';
+  const currentWeatherCondition = document.createElement('i');
+  currentWeatherCondition.id = 'currWeatherCondition';
+
+  const weatherType = document.createElement('div');
+  weatherType.classList.add('degrees_block-curr_info', 'curr_info_block');
+  const weatherTypeList = document.createElement('ul');
+  const currentWeatherType = document.createElement('li');
+  currentWeatherType.append(addDataField('currWeatherType'));
+  weatherTypeList.append(currentWeatherType);
+  const currentWeatherFeels = document.createElement('li');
+  currentWeatherFeels.append(`${objWords.feels}: `);
+  currentWeatherFeels.append(addDataField('currWeatherFeels'));
+  weatherTypeList.append(currentWeatherFeels);
+  const currentWeatherWind = document.createElement('li');
+  currentWeatherWind.append(`${objWords.wind}: `);
+  currentWeatherWind.append(addDataField('currWeatherWind'));
+  weatherTypeList.append(currentWeatherWind);
+  const currentWeatherHumidity = document.createElement('li');
+  currentWeatherHumidity.append(`${objWords.humidity}: `);
+  currentWeatherHumidity.append(addDataField('currWeatherHumidity'));
+  weatherTypeList.append(currentWeatherHumidity);
+  weatherType.append(weatherTypeList);
+
+  degrees.append(currentDegrees);
+  degrees.append(currentWeatherCondition);
+  degrees.append(weatherType);
+  infoBlock.append(cityAndDate);
+  infoBlock.append(degrees);
 
   const futureWeatherBlock = document.createElement('div');
   futureWeatherBlock.classList.add('future_weather_block');
@@ -80,13 +178,26 @@ export default function addHtml(objWords) {
   futureWeatherBlock.appendChild(addFutureDay('secondWeekDay', 'secondDegreesDay', 'secondIconDay'));
   futureWeatherBlock.appendChild(addFutureDay('thirdWeekDay', 'thirdDegreesDay', 'thirdIconDay'));
 
+
+  // Map Block
   const mapBlock = document.createElement('div');
   mapBlock.classList.add('map_block');
-  mapBlock.innerHTML = `
-   <div class="map_block-map" id="map"></div>
-   <p class="map_block-latitude">${objWords.latitude}<span id="latitude"></span></p>
-   <p class="map_block-longitude">${objWords.longitude}<span id="longitude"></span></p>`;
 
+  const map = document.createElement('div');
+  map.id = 'map';
+  map.className = 'map_block-map';
+  const latitude = document.createElement('p');
+  latitude.className = 'map_block-latitude';
+  latitude.append(`${objWords.latitude}`);
+  latitude.append(addDataField('latitude'));
+  const longitude = document.createElement('p');
+  longitude.className = 'map_block-longitude';
+  longitude.append(`${objWords.longitude}`);
+  longitude.append(addDataField('longitude'));
+
+  mapBlock.append(map);
+  mapBlock.append(latitude);
+  mapBlock.append(longitude);
 
   infoBlock.appendChild(futureWeatherBlock);
   fragmentMain.appendChild(infoBlock);
