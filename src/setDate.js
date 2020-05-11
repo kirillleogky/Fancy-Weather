@@ -20,6 +20,18 @@ export default async function setDate(lang, date = new Date()) {
   const currDateDom = document.getElementById('date');
 
 
+  const firstFutureDay = (currDate.getDay() % 7) + 1;
+  const secondFutureDay = (currDate.getDay() % 7) + 2;
+  const thirdFutureDay = (currDate.getDay() % 7) + 3;
+
+  const firstDayOfTheWeek = document.getElementById('firstWeekDay');
+  const secondDayOfTheWeek = document.getElementById('secondWeekDay');
+  const thirdDayOfTheWeek = document.getElementById('thirdWeekDay');
+  firstDayOfTheWeek.textContent = days[`${lang}`][firstFutureDay];
+  secondDayOfTheWeek.textContent = days[`${lang}`][secondFutureDay];
+  thirdDayOfTheWeek.textContent = days[`${lang}`][thirdFutureDay];
+
+
   deletePreDateInfo(currDateDom);
   currDateDom.prepend(`${dayOfTheWeek} ${day} ${month} `);
 }
