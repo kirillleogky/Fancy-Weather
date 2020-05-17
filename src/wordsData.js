@@ -1,42 +1,42 @@
 const searchBy = {
   en: 'Search city',
-  by: 'Пошук горада',
+  be: 'Пошук горада',
   ru: 'Поиск города',
 };
 
 const search = {
   en: 'SEARCH',
-  by: 'ПОШУК',
+  be: 'ПОШУК',
   ru: 'ПОИСК',
 };
 
 const feels = {
   en: 'Feels like',
-  by: 'Адчуваецца як',
+  be: 'Адчуваецца як',
   ru: 'Ощущается как',
 };
 
 const wind = {
   en: 'Wind',
-  by: 'Вецер',
+  be: 'Вецер',
   ru: 'Ветер',
 };
 
 const humidity = {
   en: 'Humidity',
-  by: 'Вільготнасць',
+  be: 'Вільготнасць',
   ru: 'Влажность',
 };
 
 const latitude = {
   en: 'Latitude: ',
-  by: 'Шырата: ',
+  be: 'Шырата: ',
   ru: 'Широта: ',
 };
 
 const longitude = {
   en: 'Longitude: ',
-  by: 'Даўгата: ',
+  be: 'Даўгата: ',
   ru: 'Долгота: ',
 };
 

@@ -1,4 +1,5 @@
 import getForecast from './getForecast';
+import { TRANSLATE_YANDEX } from './constants';
 
 function deletePreWeatherInfo(elem) {
   elem.childNodes.forEach((n) => n.nodeType === document.TEXT_NODE && n.remove());
@@ -7,6 +8,12 @@ function deletePreWeatherInfo(elem) {
 function setFutureWeather(domElem, elem) {
   deletePreWeatherInfo(domElem);
   domElem.prepend(`${Math.floor(elem.main.temp)}`);
+}
+
+async function getCurrentWeatherType(text) {
+  let lang = await fetch(`https://translate.yandex.net/api/v1.5/tr.json/translate?key=${TRANSLATE_YANDEX}&text=${text}&lang=${localStorage.getItem('language')}`);
+  lang = await lang.json();
+  return lang.text[0];
 }
 
 export default async function setForecast(forecast = getForecast()) {
@@ -19,7 +26,9 @@ export default async function setForecast(forecast = getForecast()) {
 
   const currWeatherType = document.getElementById('currWeatherType');
   deletePreWeatherInfo(currWeatherType);
-  currWeatherType.prepend(`${firstDay.weather[0].main}`);
+  const weatherType = await getCurrentWeatherType(firstDay.weather[0].main);
+  currWeatherType.prepend(`${weatherType}`);
+
 
   const currWeatherFeels = document.getElementById('currWeatherFeels');
   deletePreWeatherInfo(currWeatherFeels);

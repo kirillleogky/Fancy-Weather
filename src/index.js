@@ -82,7 +82,7 @@ window.onclick = async (event) => {
     window.location.reload();
   }
   if (event.target === document.querySelector('.bel_language_btn')) {
-    localStorage.setItem('language', 'by');
+    localStorage.setItem('language', 'be');
     window.location.reload();
   }
   if (event.target === document.querySelector('.search_menu_block-submit')) {
