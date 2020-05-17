@@ -1,10 +1,10 @@
+import { IPINFO_TOKEN, IPSTACK_TOKEN } from './constants';
+
 export default async function getUserLocation() {
-  const tokenIp = 'd12f917a258822';
-  let responseIp = await fetch(`https://ipinfo.io/json?token=${tokenIp}`);
+  let responseIp = await fetch(`https://ipinfo.io/json?token=${IPINFO_TOKEN}`);
   responseIp = await responseIp.json();
 
-  const token = '25d5d7222a366b92e02ec8c9aee0902a';
-  let response = await fetch(`http://api.ipstack.com/${responseIp.ip}?access_key=${token}`);
+  let response = await fetch(`http://api.ipstack.com/${responseIp.ip}?access_key=${IPSTACK_TOKEN}`);
   response = await response.json();
 
   const lat = response.latitude.toFixed(4);

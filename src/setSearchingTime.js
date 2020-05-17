@@ -1,10 +1,11 @@
+import { TIMEZONEDB_TOKEN } from './constants';
+
 export default async function getSearchingDate(location) {
   const { loc } = await location;
   const latitude = loc.split(',')[0];
   const longitude = loc.split(',')[1];
 
-  const token = 'M8O5O9KTPP2T';
-  let timeObj = await fetch(`http://api.timezonedb.com/v2.1/get-time-zone?key=${token}&format=json&by=position&lat=${latitude}&lng=${longitude}`);
+  let timeObj = await fetch(`http://api.timezonedb.com/v2.1/get-time-zone?key=${TIMEZONEDB_TOKEN}&format=json&by=position&lat=${latitude}&lng=${longitude}`);
   timeObj = await timeObj.json();
   let { formatted } = await timeObj;
   formatted = formatted.split(' ');

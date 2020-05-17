@@ -1,10 +1,11 @@
+import { GEOCODE_MAPS_YANDEX_TOKEN } from './constants';
+
 function deletePreCountryInfo(elem) {
   elem.childNodes.forEach((n) => n.nodeType === document.TEXT_NODE && n.remove());
 }
 
 export default async function getGeocoding(location) {
-  const token = 'f7108eea-b3ec-4332-84ff-674b9a05bfa1';
-  let newCoord = await fetch(`https://geocode-maps.yandex.ru/1.x/?format=json&lang=en_US&apikey=${token}&geocode=${location}`);
+  let newCoord = await fetch(`https://geocode-maps.yandex.ru/1.x/?format=json&lang=en_US&apikey=${GEOCODE_MAPS_YANDEX_TOKEN}&geocode=${location}`);
   newCoord = await newCoord.json();
   newCoord = await newCoord.response;
   newCoord = await newCoord.GeoObjectCollection;

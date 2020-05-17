@@ -1,7 +1,7 @@
 import getLocation from './getLocation';
 import getForecast from './getForecast';
 import deletePreLoad from './delPreLoad';
-
+import { UNSPLASH_TOKEN } from './constants';
 
 export default async function setImage(forecast = getForecast(), location = getLocation()) {
   const month = new Date().getMonth();
@@ -77,9 +77,7 @@ export default async function setImage(forecast = getForecast(), location = getL
   currWeather = currWeather.weather[0].main;
 
 
-  const token = 'cf2e15678b05f9556afd2598ef1c48b956b8b7295f08ebda3df1191a79e28d6e';
-
-  let backgroundImg = await fetch(`https://api.unsplash.com/photos/random?orientation=landscape&per_page=1&query=${city},${currWeather},${timeOfTheYear},${timeOfDay}&client_id=${token}`);
+  let backgroundImg = await fetch(`https://api.unsplash.com/photos/random?orientation=landscape&per_page=1&query=${city},${currWeather},${timeOfTheYear},${timeOfDay}&client_id=${UNSPLASH_TOKEN}`);
   backgroundImg = await backgroundImg.json();
   backgroundImg = await backgroundImg.urls;
   backgroundImg = await backgroundImg.full;
