@@ -66,6 +66,7 @@ let location;
 window.onclick = async (event) => {
   showLanguage(event);
   if (event.target === document.querySelector('.navigation_menu_block-image_btn')) {
+    document.getElementById('prldr').style = 'display: fixed;';
     if (document.querySelector('.search_menu_block-input').value.length > 2) {
       setImg(forecast, location);
     } else {
@@ -74,7 +75,6 @@ window.onclick = async (event) => {
   }
   if (event.target === document.querySelector('.search_menu_block-submit')) {
     document.getElementById('prldr').style = 'display: fixed;';
-    setTimeout(deletePreLoad, 4000);
 
     const areaSearch = document.querySelector('.search_menu_block-input').value;
     const currForecast = await getForecast(useGeocod(areaSearch));
@@ -88,6 +88,7 @@ window.onclick = async (event) => {
 
     timeDifference = await getTimeDifference(setSearchTime(useGeocod(areaSearch)));
 
+    await deletePreLoad();
 
     if (currUnitsFormat === 'Fahrenheit') {
       setFahUnitFormat();
@@ -110,5 +111,3 @@ window.onclick = async (event) => {
 
 // Set Time
 window.setInterval(setCurrTime, 3000, getTime);
-
-setTimeout(deletePreLoad, 7000);

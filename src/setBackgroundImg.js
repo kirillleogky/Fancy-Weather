@@ -1,5 +1,6 @@
 import getLocation from './getLocation';
 import getForecast from './getForecast';
+import deletePreLoad from './delPreLoad';
 
 
 export default async function setImage(forecast = getForecast(), location = getLocation()) {
@@ -87,4 +88,10 @@ export default async function setImage(forecast = getForecast(), location = getL
   elemBody.style.backgroundImage = `url(${backgroundImg})`;
   elemBody.style.backgroundSize = 'cover';
   elemBody.style.backgroundRepeat = 'no-repeat';
+
+  const img = new Image();
+  img.src = backgroundImg;
+  img.onload = () => {
+    deletePreLoad();
+  };
 }
