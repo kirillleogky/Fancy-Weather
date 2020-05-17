@@ -1,7 +1,7 @@
 const searchBy = {
-  en: 'Search city or ZIP',
-  by: 'Пошук горада ці індэкса',
-  ru: 'Поиск города или индекса',
+  en: 'Search city',
+  by: 'Пошук горада',
+  ru: 'Поиск города',
 };
 
 const search = {
@@ -24,8 +24,8 @@ const wind = {
 
 const humidity = {
   en: 'Humidity',
-  by: 'Влажность',
-  ru: 'Вільготнасць',
+  by: 'Вільготнасць',
+  ru: 'Влажность',
 };
 
 const latitude = {

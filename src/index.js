@@ -25,7 +25,7 @@ require('./style.css');
 require('./preLoaderStyle.css');
 
 let currUnitsFormat = localStorage.getItem('units') || 'Celsius';
-const currLanguage = 'en';
+const currLanguage = localStorage.getItem('language') || 'en';
 const currLangWords = {
   searchBy: `${searchBy[currLanguage]}`,
   search: `${search[currLanguage]}`,
@@ -72,6 +72,18 @@ window.onclick = async (event) => {
     } else {
       setImg();
     }
+  }
+  if (event.target === document.querySelector('.eng_language_btn')) {
+    localStorage.setItem('language', 'en');
+    window.location.reload();
+  }
+  if (event.target === document.querySelector('.rus_language_btn')) {
+    localStorage.setItem('language', 'ru');
+    window.location.reload();
+  }
+  if (event.target === document.querySelector('.bel_language_btn')) {
+    localStorage.setItem('language', 'by');
+    window.location.reload();
   }
   if (event.target === document.querySelector('.search_menu_block-submit')) {
     document.getElementById('prldr').style = 'display: fixed;';
