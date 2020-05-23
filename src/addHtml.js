@@ -132,7 +132,7 @@ export default function addHtml(objWords) {
   cityAndDate.classList.add('info_block-local_data', 'local_data_block');
   const city = document.createElement('p');
   city.id = 'city';
-  city.append(addDataField('country', 'Belarus'));
+  city.append(addDataField('country', ''));
   const date = document.createElement('p');
   date.id = 'date';
   date.append(addDataField('time', '00:00'));

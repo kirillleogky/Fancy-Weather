@@ -37,6 +37,7 @@ const currLangWords = {
 };
 addHTMLstructure(currLangWords);
 setDate(currLanguage);
+useGeocod();
 
 const userLocation = getUserLocation();
 setUpToDateLocationInfo(userLocation);

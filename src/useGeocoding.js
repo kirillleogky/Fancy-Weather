@@ -1,5 +1,11 @@
 import getUserLocation from './getLocation';
-import { GEOCODE_MAPS_YANDEX_TOKEN } from './constants';
+import { GEOCODE_MAPS_YANDEX_TOKEN, TRANSLATE_YANDEX } from './constants';
+
+async function getCurrentCountry(text) {
+  let lang = await fetch(`https://translate.yandex.net/api/v1.5/tr.json/translate?key=${TRANSLATE_YANDEX}&text=${text}&lang=${localStorage.getItem('language')}`);
+  lang = await lang.json();
+  return lang.text[0];
+}
 
 function deletePreCountryInfo(elem) {
   elem.childNodes.forEach((n) => n.nodeType === document.TEXT_NODE && n.remove());
@@ -35,7 +41,7 @@ export default async function getGeocoding(location) {
     };
 
     deletePreCountryInfo(document.getElementById('country'));
-    document.getElementById('country').prepend(`${country}`);
+    document.getElementById('country').prepend(`${await getCurrentCountry(country)}`);
 
     document.getElementById('map').innerHTML = '';
     let maps;
@@ -74,7 +80,7 @@ export default async function getGeocoding(location) {
     };
 
     deletePreCountryInfo(document.getElementById('country'));
-    document.getElementById('country').prepend(`${country}`);
+    document.getElementById('country').prepend(`${await getCurrentCountry(country)}`);
 
     document.getElementById('map').innerHTML = '';
     let maps;
