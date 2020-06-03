@@ -48,14 +48,14 @@
 
 .choose_btn {
     width: 100%;
-    background-image: url('img/language.svg');
+    background-image: url('../img/language.svg');
     background-repeat: no-repeat;
     background-position: 40% 50%;
 }
 
 .navigation_menu_block-image_btn {
     background-size: contain;
-    background: url('img/image-background-icon.svg') 0% 90% no-repeat rgba(164, 164, 164, 1);
+    background: url('../img/image-background-icon.svg') 0% 90% no-repeat rgba(164, 164, 164, 1);
 }
 
 .navigation_menu_block-dropdown {

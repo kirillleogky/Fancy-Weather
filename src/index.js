@@ -21,8 +21,8 @@ import setFahUnitFormat from './setFahrenheitUnitFormat';
 import setCelUnitFormat from './setCelsiusUnitFormat';
 import deletePreLoad from './delPreLoad';
 
-require('./style.css');
-require('./preLoaderStyle.css');
+require('./styles/style.css');
+require('./styles/preLoaderStyle.css');
 
 let currUnitsFormat = localStorage.getItem('units') || 'Celsius';
 const currLanguage = localStorage.getItem('language') || 'en';
