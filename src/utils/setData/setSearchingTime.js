@@ -1,4 +1,4 @@
-import { TIMEZONEDB_TOKEN } from './constants';
+import { TIMEZONEDB_TOKEN } from '../staticData/constants';
 
 export default async function getSearchingDate(location) {
   const { loc } = await location;

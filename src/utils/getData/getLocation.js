@@ -1,4 +1,4 @@
-import { IPINFO_TOKEN, IPSTACK_TOKEN } from './constants';
+import { IPINFO_TOKEN, IPSTACK_TOKEN } from '../staticData/constants';
 
 export default async function getUserLocation() {
   let responseIp = await fetch(`https://ipinfo.io/json?token=${IPINFO_TOKEN}`);

@@ -1,5 +1,5 @@
-import getForecast from './getForecast';
-import weatherIcons from './weatherIconsTags';
+import getForecast from '../getData/getForecast';
+import weatherIcons from '../staticData/weatherIconsTags';
 
 async function addWeatherIcons(day) {
   const prefix = 'wi-';

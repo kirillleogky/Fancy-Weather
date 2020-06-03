@@ -1,5 +1,5 @@
-import getForecast from './getForecast';
-import { TRANSLATE_YANDEX } from './constants';
+import getForecast from '../getData/getForecast';
+import { TRANSLATE_YANDEX } from '../staticData/constants';
 
 function deletePreWeatherInfo(elem) {
   elem.childNodes.forEach((n) => n.nodeType === document.TEXT_NODE && n.remove());

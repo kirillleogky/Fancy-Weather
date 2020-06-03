@@ -4,21 +4,21 @@ import addHTMLstructure from './addHtml';
 import showLanguage from './showLang';
 import {
   searchBy, search, feels, wind, humidity, latitude, longitude,
-} from './wordsData';
-import getUserLocation from './getLocation';
-import setUpToDateLocationInfo from './setLocationInfo';
+} from './utils/staticData/wordsData';
+import getUserLocation from './utils/getData/getLocation';
+import setUpToDateLocationInfo from './utils/setData/setLocationInfo';
 import addMap from './addMap';
-import getForecast from './getForecast';
-import setForecast from './setForecastInfo';
-import setWeatherIcons from './setIcons';
-import setDate from './setDate';
-import setCurrTime from './setCurrTime';
-import setImg from './setBackgroundImg';
-import useGeocod from './useGeocoding';
-import setSearchTime from './setSearchingTime';
-import getTimeDifference from './getTimeDifference';
-import setFahUnitFormat from './setFahrenheitUnitFormat';
-import setCelUnitFormat from './setCelsiusUnitFormat';
+import getForecast from './utils/getData/getForecast';
+import setForecast from './utils/setData/setForecastInfo';
+import setWeatherIcons from './utils/setData/setIcons';
+import setDate from './utils/setData/setDate';
+import setCurrTime from './utils/setData/setCurrTime';
+import setImg from './utils/setData/setBackgroundImg';
+import useGeocod from './utils/getData/useGeocoding';
+import setSearchTime from './utils/setData/setSearchingTime';
+import getTimeDifference from './utils/getData/getTimeDifference';
+import setFahUnitFormat from './utils/setData/setFahrenheitUnitFormat';
+import setCelUnitFormat from './utils/setData/setCelsiusUnitFormat';
 import deletePreLoad from './delPreLoad';
 
 require('./styles/style.css');

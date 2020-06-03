@@ -1,5 +1,5 @@
 import getUserLocation from './getLocation';
-import { GEOCODE_MAPS_YANDEX_TOKEN, TRANSLATE_YANDEX } from './constants';
+import { GEOCODE_MAPS_YANDEX_TOKEN, TRANSLATE_YANDEX } from '../staticData/constants';
 
 async function getCurrentCountry(text) {
   let lang = await fetch(`https://translate.yandex.net/api/v1.5/tr.json/translate?key=${TRANSLATE_YANDEX}&text=${text}&lang=${localStorage.getItem('language')}`);

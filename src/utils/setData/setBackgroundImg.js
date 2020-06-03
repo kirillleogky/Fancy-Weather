@@ -1,7 +1,7 @@
-import getLocation from './getLocation';
-import getForecast from './getForecast';
-import deletePreLoad from './delPreLoad';
-import { UNSPLASH_TOKEN } from './constants';
+import getLocation from '../getData/getLocation';
+import getForecast from '../getData/getForecast';
+import deletePreLoad from '../../delPreLoad';
+import { UNSPLASH_TOKEN } from '../staticData/constants';
 
 export default async function setImage(forecast = getForecast(), location = getLocation()) {
   const month = new Date().getMonth();
