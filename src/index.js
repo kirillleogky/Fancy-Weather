@@ -1,7 +1,7 @@
 import "@babel/polyfill";
 import "weather-icons/css/weather-icons.min.css";
-import addHTMLstructure from "./addHtml";
-import showLanguage from "./showLang";
+import addHTMLstructure from "./utils/addHtml";
+import showLanguage from "./utils/showLang";
 import {
   searchBy,
   search,
@@ -13,7 +13,7 @@ import {
 } from "./utils/staticData/wordsData";
 import getUserLocation from "./utils/Location/getLocation";
 import setUpToDateLocationInfo from "./utils/Location/setLocationInfo";
-import addMap from "./addMap";
+import addMap from "./utils/addMap";
 import getForecast from "./utils/Forecast/getForecast";
 import setForecast from "./utils/Forecast/setForecastInfo";
 import setWeatherIcons from "./utils/IconAndImg/setIcons";
@@ -27,7 +27,7 @@ import {
   setCelsiusUnitFormat as setCelUnitFormat,
   setFahrenheitUnitFormat as setFahUnitFormat,
 } from "./utils/UnitFormat/setUnitFormats";
-import deletePreLoad from "./delPreLoad";
+import deletePreLoad from "./utils/delPreLoad";
 
 require("./styles/style.css");
 require("./styles/preLoaderStyle.css");

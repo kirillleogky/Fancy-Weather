@@ -1,4 +1,4 @@
-import getUserLocation from "./utils/Location/getLocation";
+import getUserLocation from "./Location/getLocation";
 
 let maps;
 
