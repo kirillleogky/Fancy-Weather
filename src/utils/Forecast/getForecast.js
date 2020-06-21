@@ -1,4 +1,4 @@
-import getUserLocation from './getLocation';
+import getUserLocation from '../Location/getLocation';
 import { OPENWEATHERMAP_TOKEN } from '../staticData/constants';
 
 export default async function getWeatherForecast(location = getUserLocation()) {

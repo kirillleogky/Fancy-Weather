@@ -1,5 +1,5 @@
-import getLocation from '../getData/getLocation';
-import getForecast from '../getData/getForecast';
+import getLocation from '../Location/getLocation';
+import getForecast from '../Forecast/getForecast';
 import deletePreLoad from '../../delPreLoad';
 import { UNSPLASH_TOKEN } from '../staticData/constants';
 

@@ -1,4 +1,4 @@
-import getForecast from '../getData/getForecast';
+import getForecast from './getForecast';
 import { TRANSLATE_YANDEX } from '../staticData/constants';
 
 function deletePreWeatherInfo(elem) {

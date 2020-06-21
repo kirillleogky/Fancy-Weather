@@ -1,4 +1,4 @@
-import getForecast from '../getData/getForecast';
+import getForecast from '../Forecast/getForecast';
 import weatherIcons from '../staticData/weatherIconsTags';
 
 async function addWeatherIcons(day) {
