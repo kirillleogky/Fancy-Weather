@@ -12,6 +12,7 @@ async function addWeatherIcons(day) {
 export default async function addToDomIcons(forecast = getForecast()) {
   const [
     currDay,
+
     ,
     ,
     ,
@@ -20,6 +21,7 @@ export default async function addToDomIcons(forecast = getForecast()) {
     ,
     ,
     firstDay,
+
     ,
     ,
     ,
@@ -28,6 +30,7 @@ export default async function addToDomIcons(forecast = getForecast()) {
     ,
     ,
     secondDay,
+
     ,
     ,
     ,

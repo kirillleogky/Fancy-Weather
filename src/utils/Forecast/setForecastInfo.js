@@ -25,6 +25,7 @@ async function getCurrentWeatherType(text) {
 export default async function setForecast(forecast = getForecast()) {
   const [
     firstDay,
+
     ,
     ,
     ,
@@ -33,6 +34,7 @@ export default async function setForecast(forecast = getForecast()) {
     ,
     ,
     secondDay,
+
     ,
     ,
     ,
@@ -41,6 +43,7 @@ export default async function setForecast(forecast = getForecast()) {
     ,
     ,
     thirdDay,
+
     ,
     ,
     ,
