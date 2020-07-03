@@ -2,6 +2,11 @@ import "@babel/polyfill";
 import "weather-icons/css/weather-icons.min.css";
 import addHTMLstructure from "./utils/addHtml";
 import showLanguage from "./utils/showLang";
+import addMap from "./utils/addMap";
+import { setForecast, getForecast } from "./utils/Forecast/forecast";
+import setWeatherIcons from "./utils/IconAndImg/setIcons";
+import setImg from "./utils/IconAndImg/setBackgroundImg";
+import deletePreLoad from "./utils/delPreLoad";
 import {
   searchBy,
   search,
@@ -11,23 +16,20 @@ import {
   latitude,
   longitude,
 } from "./utils/staticData/wordsData";
-import getUserLocation from "./utils/Location/getLocation";
-import setUpToDateLocationInfo from "./utils/Location/setLocationInfo";
-import addMap from "./utils/addMap";
-import getForecast from "./utils/Forecast/getForecast";
-import setForecast from "./utils/Forecast/setForecastInfo";
-import setWeatherIcons from "./utils/IconAndImg/setIcons";
-import setDate from "./utils/TimeAndDate/setDate";
-import setCurrTime from "./utils/TimeAndDate/setCurrTime";
-import setImg from "./utils/IconAndImg/setBackgroundImg";
-import useGeocod from "./utils/Location/useGeocoding";
-import setSearchTime from "./utils/TimeAndDate/setSearchingTime";
-import getTimeDifference from "./utils/TimeAndDate/getTimeDifference";
+import {
+  getSearchingDate as getSearchTime,
+  setDate,
+  getTimeDifference,
+  setTime,
+} from "./utils/TimeAndDate/datetime";
+import {
+  useGeocoding as useGeocod,
+  setLocation as setUpToDateLocationInfo,
+} from "./utils/Location/location";
 import {
   setCelsiusUnitFormat as setCelUnitFormat,
   setFahrenheitUnitFormat as setFahUnitFormat,
 } from "./utils/UnitFormat/setUnitFormats";
-import deletePreLoad from "./utils/delPreLoad";
 
 require("./styles/style.css");
 require("./styles/preLoaderStyle.css");
@@ -47,8 +49,7 @@ addHTMLstructure(currLangWords);
 setDate(currLanguage);
 useGeocod();
 
-const userLocation = getUserLocation();
-setUpToDateLocationInfo(userLocation);
+setUpToDateLocationInfo(true);
 
 /* eslint-disable */
 ymaps.ready(addMap);
@@ -103,12 +104,12 @@ window.onclick = async (event) => {
     forecast = await currForecast;
     location = await useGeocod();
 
-    setUpToDateLocationInfo(useGeocod());
+    setUpToDateLocationInfo(false);
     setForecast(currForecast);
     setWeatherIcons(currForecast);
-    setDate(currLanguage, setSearchTime(useGeocod()));
+    setDate(currLanguage, getSearchTime());
 
-    timeDifference = await getTimeDifference(setSearchTime(useGeocod()));
+    timeDifference = await getTimeDifference();
 
     await deletePreLoad();
 
@@ -132,4 +133,4 @@ window.onclick = async (event) => {
 };
 
 // Set Time
-window.setInterval(setCurrTime, 3000, getTime);
+window.setInterval(setTime, 3000, getTime);

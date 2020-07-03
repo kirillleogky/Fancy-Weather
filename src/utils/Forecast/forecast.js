@@ -1,6 +1,30 @@
-import getForecast from "./getForecast";
-import { TRANSLATE_YANDEX } from "../staticData/constants";
+import { useGeocoding, getUserLocation } from "../Location/location";
+import {
+  OPENWEATHERMAP_TOKEN,
+  TRANSLATE_YANDEX,
+} from "../staticData/constants";
 
+// Get forecast
+async function getForecast() {
+  let location = document.querySelector(".search_menu_block-input").value;
+  location = location === "" ? getUserLocation() : useGeocoding();
+
+  try {
+    const { loc } = await location;
+    const latitude = loc.split(",")[0];
+    const longitude = loc.split(",")[1];
+
+    const forecast = await fetch(
+      `https://api.openweathermap.org/data/2.5/forecast?lat=${latitude}&lon=${longitude}&appid=${OPENWEATHERMAP_TOKEN}&units=metric`
+    );
+    const forecastJson = await forecast.json();
+    return await forecastJson.list;
+  } catch (e) {
+    throw new Error(e);
+  }
+}
+
+// Functions for setting forecast
 function deletePreWeatherInfo(elem) {
   elem.childNodes.forEach(
     (n) => n.nodeType === document.TEXT_NODE && n.remove()
@@ -22,7 +46,7 @@ async function getCurrentWeatherType(text) {
   return lang.text[0];
 }
 
-export default async function setForecast(forecast = getForecast()) {
+async function setForecast(forecast = getForecast()) {
   const [
     firstDay,
 
@@ -83,3 +107,5 @@ export default async function setForecast(forecast = getForecast()) {
   setFutureWeather(secondFutureDegreesDay, thirdDay);
   setFutureWeather(thirdFutureDegreesDay, fourthDay);
 }
+
+export { getForecast, setForecast };

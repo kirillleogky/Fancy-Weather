@@ -40,4 +40,65 @@ const longitude = {
   ru: "Долгота: ",
 };
 
-export { searchBy, search, feels, wind, humidity, latitude, longitude };
+const days = {
+  en: ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"],
+  be: ["Няд", "Пнд", "Аўт", "Сер", "Чцв", "Пят", "Суб"],
+  ru: ["Вск", "Пнд", "Втр", "Срд", "Чтв", "Птн", "Сбт"],
+};
+
+const months = {
+  en: [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December",
+  ],
+  be: [
+    "Студзень",
+    "Люты",
+    "Сакавік",
+    "Красавік",
+    "Травень",
+    "Чэрвень",
+    "Ліпень",
+    "Жнiвень",
+    "Верасень",
+    "Кастрычнiк",
+    "Лістапад",
+    "Снежань",
+  ],
+  ru: [
+    "Январь",
+    "Февраль",
+    "Март",
+    "Апрель",
+    "Май",
+    "Июнь",
+    "Июль",
+    "Август",
+    "Сентябрь",
+    "Октябрь",
+    "Ноябрь",
+    "Декабрь",
+  ],
+};
+
+export {
+  searchBy,
+  search,
+  feels,
+  wind,
+  humidity,
+  latitude,
+  longitude,
+  days,
+  months,
+};

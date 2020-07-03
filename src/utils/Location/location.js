@@ -1,7 +1,8 @@
-import getUserLocation from "./getLocation";
 import {
   GEOCODE_MAPS_YANDEX_TOKEN,
   TRANSLATE_YANDEX,
+  IPINFO_TOKEN,
+  IPSTACK_TOKEN,
 } from "../staticData/constants";
 
 async function getCurrentCountry(text) {
@@ -20,7 +21,43 @@ function deletePreCountryInfo(elem) {
   );
 }
 
-export default async function getGeocoding() {
+async function getCurrentCity(text) {
+  let lang = await fetch(
+    `https://translate.yandex.net/api/v1.5/tr.json/translate?key=${TRANSLATE_YANDEX}&text=${text}&lang=${localStorage.getItem(
+      "language"
+    )}`
+  );
+  lang = await lang.json();
+  return lang.text[0];
+}
+
+function deletePreLocationInfo(elem) {
+  elem.childNodes.forEach(
+    (n) => n.nodeType === document.TEXT_NODE && n.remove()
+  );
+}
+
+// Get Location
+async function getUserLocation() {
+  let responseIp = await fetch(`https://ipinfo.io/json?token=${IPINFO_TOKEN}`);
+  responseIp = await responseIp.json();
+
+  let response = await fetch(
+    `http://api.ipstack.com/${responseIp.ip}?access_key=${IPSTACK_TOKEN}`
+  );
+  response = await response.json();
+
+  const lat = response.latitude.toFixed(4);
+  const long = response.longitude.toFixed(4);
+  return {
+    city: `${response.city}`,
+    loc: `${lat},${long}`,
+    country: `${response.country_code}`,
+  };
+}
+
+// Use Geocoding
+async function useGeocoding() {
   let cityIp = await getUserLocation();
   cityIp = await cityIp.city;
 
@@ -83,3 +120,22 @@ export default async function getGeocoding() {
   /* eslint-enable */
   return currInfoObj;
 }
+
+// Set Location
+async function setLocation(isUserLocation) {
+  const location = isUserLocation ? getUserLocation() : useGeocoding();
+  const { city, loc } = await location;
+  const latitude = loc.split(",")[0];
+  const longitude = loc.split(",")[1];
+  const currCity = await getCurrentCity(city);
+
+  deletePreLocationInfo(document.getElementById("city"));
+  deletePreLocationInfo(document.getElementById("latitude"));
+  deletePreLocationInfo(document.getElementById("longitude"));
+
+  document.getElementById("city").prepend(`${currCity}, `);
+  document.getElementById("latitude").prepend(latitude);
+  document.getElementById("longitude").prepend(longitude);
+}
+
+export { useGeocoding, setLocation, getUserLocation };

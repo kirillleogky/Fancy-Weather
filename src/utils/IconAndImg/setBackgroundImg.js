@@ -1,11 +1,11 @@
-import getLocation from "../Location/getLocation";
-import getForecast from "../Forecast/getForecast";
+import { getUserLocation } from "../Location/location";
+import { getForecast } from "../Forecast/forecast";
 import deletePreLoad from "../delPreLoad";
 import { UNSPLASH_TOKEN } from "../staticData/constants";
 
 export default async function setImage(
   forecast = getForecast(),
-  location = getLocation()
+  location = getUserLocation()
 ) {
   const month = new Date().getMonth();
   const hours = new Date().getHours();
