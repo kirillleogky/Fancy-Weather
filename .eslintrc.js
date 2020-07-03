@@ -8,8 +8,10 @@ module.exports = {
     ecmaVersion: 2019,
     sourceType: "module",
   },
-  extends: ["eslint:recommended"],
+  extends: ["eslint:recommended", "prettier"],
+  plugins: ["prettier"],
   rules: {
+    "prettier/prettier": ["error"],
     "no-console": 2,
     "no-implied-eval": 2,
     "no-empty-function": 2,
