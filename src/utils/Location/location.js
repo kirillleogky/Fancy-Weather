@@ -15,11 +15,11 @@ async function getCurrentCountry(text) {
   return lang.text[0];
 }
 
-function deletePreCountryInfo(elem) {
-  elem.childNodes.forEach(
-    (n) => n.nodeType === document.TEXT_NODE && n.remove()
-  );
-}
+// // function deletePreCountryInfo(elem) {
+//   elem.childNodes.forEach(
+//     (n) => n.nodeType === document.TEXT_NODE && n.remove()
+//   );
+// }
 
 async function getCurrentCity(text) {
   let lang = await fetch(
@@ -103,12 +103,9 @@ async function useGeocoding() {
     loc: `${latitude},${longitude}`,
     country: `${countryCode}`,
   };
-
-  deletePreCountryInfo(document.getElementById("country"));
-  document
-    .getElementById("country")
-    .prepend(`${await getCurrentCountry(country)}`);
-
+  document.getElementById("country").textContent = `${await getCurrentCountry(
+    country
+  )}`;
   document.getElementById("map").innerHTML = "";
   let maps;
   /* eslint-disable */

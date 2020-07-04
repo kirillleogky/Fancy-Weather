@@ -100,6 +100,11 @@ window.onclick = async (event) => {
   if (event.target === document.querySelector(".search_menu_block-submit")) {
     document.getElementById("prldr").style = "display: fixed;";
 
+    localStorage.setItem(
+      "searchingCity",
+      document.querySelector(".search_menu_block-input").value
+    );
+
     const currForecast = await getForecast();
     forecast = await currForecast;
     location = await useGeocod();
@@ -131,6 +136,18 @@ window.onclick = async (event) => {
     }
   }
 };
+
+// Starts weather search when changing language
+if (localStorage.getItem("searchingCity") !== "") {
+  document.querySelector(".search_menu_block-submit").click();
+}
+
+if (
+  localStorage.getItem("searchingCity") !==
+  document.querySelector(".search_menu_block-input").value
+) {
+  localStorage.setItem("searchingCity", "");
+}
 
 // Set Time
 window.setInterval(setTime, 3000, getTime);

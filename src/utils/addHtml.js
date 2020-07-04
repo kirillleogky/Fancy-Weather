@@ -107,6 +107,7 @@ export default function addHtml(objWords) {
   searchInput.setAttribute("type", "text");
   searchInput.setAttribute("placeholder", `${objWords.searchBy}`);
   searchInput.classList.add("search_menu_block-input");
+  searchInput.value = localStorage.getItem("searchingCity") || "";
   searchMenuBlock.appendChild(searchInput);
   const searchSubmit = document.createElement("input");
   searchSubmit.setAttribute("type", "submit");
