@@ -1,31 +1,41 @@
-import '@babel/polyfill';
-import 'weather-icons/css/weather-icons.min.css';
-import addHTMLstructure from './addHtml';
-import showLanguage from './showLang';
+import "@babel/polyfill";
+import "weather-icons/css/weather-icons.min.css";
+import addHTMLstructure from "./utils/addHtml";
+import showLanguage from "./utils/showLang";
+import addMap from "./utils/addMap";
+import { setForecast, getForecast } from "./utils/Forecast/forecast";
+import setWeatherIcons from "./utils/IconAndImg/setIcons";
+import setImg from "./utils/IconAndImg/setBackgroundImg";
+import deletePreLoad from "./utils/delPreLoad";
 import {
-  searchBy, search, feels, wind, humidity, latitude, longitude,
-} from './wordsData';
-import getUserLocation from './getLocation';
-import setUpToDateLocationInfo from './setLocationInfo';
-import addMap from './addMap';
-import getForecast from './getForecast';
-import setForecast from './setForecastInfo';
-import setWeatherIcons from './setIcons';
-import setDate from './setDate';
-import setCurrTime from './setCurrTime';
-import setImg from './setBackgroundImg';
-import useGeocod from './useGeocoding';
-import setSearchTime from './setSearchingTime';
-import getTimeDifference from './getTimeDifference';
-import setFahUnitFormat from './setFahrenheitUnitFormat';
-import setCelUnitFormat from './setCelsiusUnitFormat';
-import deletePreLoad from './delPreLoad';
+  searchBy,
+  search,
+  feels,
+  wind,
+  humidity,
+  latitude,
+  longitude,
+} from "./utils/staticData/wordsData";
+import {
+  getSearchingDate as getSearchTime,
+  setDate,
+  getTimeDifference,
+  setTime,
+} from "./utils/TimeAndDate/datetime";
+import {
+  useGeocoding as useGeocod,
+  setLocation as setUpToDateLocationInfo,
+} from "./utils/Location/location";
+import {
+  setCelsiusUnitFormat as setCelUnitFormat,
+  setFahrenheitUnitFormat as setFahUnitFormat,
+} from "./utils/UnitFormat/setUnitFormats";
 
-require('./style.css');
-require('./preLoaderStyle.css');
+require("./styles/style.css");
+require("./styles/preLoaderStyle.css");
 
-let currUnitsFormat = localStorage.getItem('units') || 'Celsius';
-const currLanguage = localStorage.getItem('language') || 'en';
+let currUnitsFormat = localStorage.getItem("units") || "Celsius";
+const currLanguage = localStorage.getItem("language") || "en";
 const currLangWords = {
   searchBy: `${searchBy[currLanguage]}`,
   search: `${search[currLanguage]}`,
@@ -39,8 +49,7 @@ addHTMLstructure(currLangWords);
 setDate(currLanguage);
 useGeocod();
 
-const userLocation = getUserLocation();
-setUpToDateLocationInfo(userLocation);
+setUpToDateLocationInfo(true);
 
 /* eslint-disable */
 ymaps.ready(addMap);
@@ -49,8 +58,8 @@ setForecast();
 setWeatherIcons();
 setImg();
 
-if (currUnitsFormat === 'Fahrenheit') {
-  document.querySelector('.temp_change').classList.add('temp');
+if (currUnitsFormat === "Fahrenheit") {
+  document.querySelector(".temp_change").classList.add("temp");
   setTimeout(setFahUnitFormat, 3000);
 }
 
@@ -66,61 +75,79 @@ let forecast;
 let location;
 window.onclick = async (event) => {
   showLanguage(event);
-  if (event.target === document.querySelector('.navigation_menu_block-image_btn')) {
-    document.getElementById('prldr').style = 'display: fixed;';
-    if (document.querySelector('.search_menu_block-input').value.length > 2) {
+  if (
+    event.target === document.querySelector(".navigation_menu_block-image_btn")
+  ) {
+    document.getElementById("prldr").style = "display: fixed;";
+    if (document.querySelector(".search_menu_block-input").value.length > 2) {
       setImg(forecast, location);
     } else {
       setImg();
     }
   }
-  if (event.target === document.querySelector('.eng_language_btn')) {
-    localStorage.setItem('language', 'en');
+  if (event.target === document.querySelector(".eng_language_btn")) {
+    localStorage.setItem("language", "en");
     window.location.reload();
   }
-  if (event.target === document.querySelector('.rus_language_btn')) {
-    localStorage.setItem('language', 'ru');
+  if (event.target === document.querySelector(".rus_language_btn")) {
+    localStorage.setItem("language", "ru");
     window.location.reload();
   }
-  if (event.target === document.querySelector('.bel_language_btn')) {
-    localStorage.setItem('language', 'be');
+  if (event.target === document.querySelector(".bel_language_btn")) {
+    localStorage.setItem("language", "be");
     window.location.reload();
   }
-  if (event.target === document.querySelector('.search_menu_block-submit')) {
-    document.getElementById('prldr').style = 'display: fixed;';
+  if (event.target === document.querySelector(".search_menu_block-submit")) {
+    document.getElementById("prldr").style = "display: fixed;";
 
-    const areaSearch = document.querySelector('.search_menu_block-input').value;
-    const currForecast = await getForecast(useGeocod(areaSearch));
+    localStorage.setItem(
+      "searchingCity",
+      document.querySelector(".search_menu_block-input").value
+    );
+
+    const currForecast = await getForecast();
     forecast = await currForecast;
-    location = await useGeocod(areaSearch);
+    location = await useGeocod();
 
-    setUpToDateLocationInfo(useGeocod(areaSearch));
+    setUpToDateLocationInfo(false);
     setForecast(currForecast);
     setWeatherIcons(currForecast);
-    setDate(currLanguage, setSearchTime(useGeocod(areaSearch)));
+    setDate(currLanguage, getSearchTime());
 
-    timeDifference = await getTimeDifference(setSearchTime(useGeocod(areaSearch)));
+    timeDifference = await getTimeDifference();
 
     await deletePreLoad();
 
-    if (currUnitsFormat === 'Fahrenheit') {
+    if (currUnitsFormat === "Fahrenheit") {
       setFahUnitFormat();
     }
   }
-  if (event.target === document.querySelector('.temp_change')) {
-    if (currUnitsFormat === 'Celsius') {
-      localStorage.setItem('units', 'Fahrenheit');
-      document.querySelector('.temp_change').classList.add('temp');
+  if (event.target === document.querySelector(".temp_change")) {
+    if (currUnitsFormat === "Celsius") {
+      localStorage.setItem("units", "Fahrenheit");
+      document.querySelector(".temp_change").classList.add("temp");
       setFahUnitFormat();
-      currUnitsFormat = 'Fahrenheit';
+      currUnitsFormat = "Fahrenheit";
     } else {
-      localStorage.setItem('units', 'Celsius');
-      document.querySelector('.temp_change').classList.remove('temp');
-      currUnitsFormat = 'Celsius';
+      localStorage.setItem("units", "Celsius");
+      document.querySelector(".temp_change").classList.remove("temp");
+      currUnitsFormat = "Celsius";
       setCelUnitFormat();
     }
   }
 };
 
+// Starts weather search when changing language
+if (localStorage.getItem("searchingCity") !== "") {
+  document.querySelector(".search_menu_block-submit").click();
+}
+
+if (
+  localStorage.getItem("searchingCity") !==
+  document.querySelector(".search_menu_block-input").value
+) {
+  localStorage.setItem("searchingCity", "");
+}
+
 // Set Time
-window.setInterval(setCurrTime, 3000, getTime);
+window.setInterval(setTime, 3000, getTime);
